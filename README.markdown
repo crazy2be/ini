@@ -33,9 +33,4 @@ A simple package to read ini files (actually just name=value files, [sections] a
 Functions
 ---------
 
-### func Load(filename string) (settings map[string]string, err os.Error)
-Load an ini file. Pass a filename, returns a map of all of the name=value pairs within the file, and an error if applicable.
-TODO: Read by line, rather than buffering the whole file into memory.
-
-### func Save(filename string, settings map[string]string) (err os.Error)
-Save a map of settings to filename in name=value format. Returns nil on success, error otherwise. Creates any necessary directories to save the file according to the path given.
+Full function reference available at http://gopkgdoc.appspot.com/pkg/github.com/crazy2be/ini
