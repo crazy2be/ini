@@ -19,12 +19,12 @@ func Load(filename string) (settings map[string]string, err os.Error) {
 		log.Printf("Failed to read %s: %s.\n", filename, err)
 		return
 	}
-	lines := bytes.Split(fileContents, []byte("\n"), -1)
-	for _, line := range(lines) {
-		splitLine := bytes.Split(line, []byte("="), 2)
+	lines := bytes.Split(fileContents, []byte("\n"))
+	for _, line := range lines {
+		splitLine := bytes.SplitN(line, []byte("="), 2)
 		if len(splitLine) < 2 {
 			//No = in line or value is blank. Skipping.
-			break;
+			break
 		}
 		settings[string(splitLine[0])] = string(splitLine[1])
 	}
@@ -39,15 +39,15 @@ func Save(filename string, settings map[string]string) (err os.Error) {
 		log.Println("Error creating directory to save ini file", filename, ":", err)
 		return
 	}
-	
+
 	var file *os.File
 	file, err = os.OpenFile(filename, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0644)
 	if err != nil {
 		log.Printf("Failed to open %s, %s.\n", filename, err)
 		return
 	}
- 	for key, value := range(settings) {
- 		fmt.Fprintf(file, "%s=%s\n", key, value)
- 	}
+	for key, value := range settings {
+		fmt.Fprintf(file, "%s=%s\n", key, value)
+	}
 	return
 }
