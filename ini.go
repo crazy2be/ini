@@ -2,17 +2,17 @@
 package ini
 
 import (
-	"io/ioutil"
 	"bytes"
-	"path"
-	"log"
 	"fmt"
+	"io/ioutil"
+	"log"
 	"os"
+	"path"
 )
 
 // Load an ini file. Pass a filename, returns a map of all of the name=value pairs within the file, and an error if applicable.
 // TODO: Read by line, rather than buffering the whole file into memory.
-func Load(filename string) (settings map[string]string, err os.Error) {
+func Load(filename string) (settings map[string]string, err error) {
 	settings = make(map[string]string, 10)
 	fileContents, err := ioutil.ReadFile(filename)
 	if err != nil {
@@ -32,7 +32,7 @@ func Load(filename string) (settings map[string]string, err os.Error) {
 }
 
 // Save a map of settings to filename in name=value format. Returns nil on success, error otherwise. Creates any necessary directories to save the file according to the path given.
-func Save(filename string, settings map[string]string) (err os.Error) {
+func Save(filename string, settings map[string]string) (err error) {
 	dirname, _ := path.Split(filename)
 	err = os.MkdirAll(dirname, 0755)
 	if err != nil {
